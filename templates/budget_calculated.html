@@ -1,0 +1,93 @@
+<link href="{{ url_for('static', filename='budget_calculated.css') }}" rel=stylesheet>
+
+<title>Budget Results</title>
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div id="main-body">
+    {% if mandatory_over == True %}
+    <p>Your Mandatory Expenses are higher than average Singaporeans'</p>
+    {% else %}
+    <p>Your Mandatory Expenses falls within the healthy range. Keep it up!</p>
+    {% endif %}
+    <p>Your Mandatory Expense: {{ mandatory_expenses_percent }}%</p>
+    <p>SG Average Mandatory Expense: 54.7%</p>
+    <p>Recommended Mandatory Expense: 50%</p>
+    {% if discretionary_over == True %}
+    <p>Your Discretionary Expense are higher than average Singaporeans'</p>
+    {% else %}
+    <p>Your Discretionary Expenses falls within the healthy range. Good job!</p>
+    {% endif %}
+    <p>Your discretionary expense: {{discretionary_expenses_percent}} %</p>
+    <p>SG Avergae discretionary expense: 38.4%</p>
+    <p>Recommended discretionary expense: 30%</p>
+    {% if savings_under == True %}
+    <p>Your monthly savings are lower than average Singaporeans'</p>
+    {% else %}
+    <p>Your monthly savings falls within the healthy range.</p>
+    {% endif %}
+    <p>Your monthly savings: {{ savings_percent }}%</p>
+    <p>SG Average savings: 6.9%</p>
+    <p>Recommended savings: 20%</p>
+
+    <img src="https://www.thebalancemoney.com/thmb/6n63bqJ-DwCThhA3vOTEKzfVL-A=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/50-30-20budgetingrulecustomillustration-9973713c9be846c1b25b7bf372b4818d.png">
+    <p>The 50/30/20 rule is a simple and effective budgeting guideline that helps people allocate their income wisely to achieve financial goals. Here's a breakdown:</p>
+    <ol>
+        <li>50%: Needs</li>
+        <ul>
+            <li>Allocate 50% of your income to cover essential needs such as housing, utilities, groceries, transportation, and insurance.</li>
+            <li>This category ensures you prioritize necessities and maintain a stable and comfortable lifestyle.</li>
+        </ul>
+        <li>30%: Wants</li>
+        <ul>
+            <li>Dedicate 30% of your income to discretionary spending on non-essential items or lifestyle choices.</li>
+            <li>This includes dining out, entertainment, hobbies, and other personal indulgences.</li>
+            <li>While it allows for enjoyment, it's important to be mindful and avoid excessive spending in this category.</li>
+        </ul>
+        <li>20%: Savings and Debt Repayment</li>
+        <ul>
+            <li>Commit 20% of your income to savings and debt repayment.</li>
+            <li>This portion is crucial for building an emergency fund, saving for future goals (like a home or education), and paying off high-interest debts.</li>
+            <li>Prioritize debt repayment to reduce financial burdens and allocate the remainder to savings for long-term financial security.</li>
+        </ul>
+    </ol>
+
+    <h3>Key Tips:</h3>
+    <ul>
+        <li>Regularly review and adjust your budget to accommodate changing circumstances.</li>
+        <li>Emergency savings should ideally cover 3 to 6 months of living expenses.</li>
+        <li>Consider contributing to retirement savings beyond the 20% allocation as financial circumstances permit.</li>
+        <li>Automate your savings and debt payments to ensure consistency and discipline in financial planning.</li>
+    </ul>
+
+    <p>Besides the 50/30/20 rule, here are some useful plans that you can try!</p>
+    <ol>
+        <li>Envelope System</li>
+        <ul>
+            <li>Allocate cash to specific envelopes for different spending categories.</li>
+            <li>Encourages disciplined spending and helps control discretionary expenses.</li>
+        </ul>
+        <small>To find out more, click <a href="https://www.nerdwallet.com/article/finance/envelope-system">here</a></small>
+        <li>Pay Yourself First</li>
+        <ul>
+            <li>Prioritize savings by setting aside a fixed amount or percentage of your income before paying other expenses.</li>
+            <li>Automate savings to ensure consistency and build a financial cushion.</li>
+        </ul>
+        <small>To find out more, click <a href="https://www.capitalone.com/learn-grow/money-management/pay-yourself-first/">here</a></small>
+        <li>The 52-Week Money Challenge</li>
+        <ul>
+            <li>Save a specific amount each week corresponding to the week number (e.g., $1 in week 1, $2 in week 2, and so on).</li>
+            <li>By the end of the year, you'll have saved $1,378.</li>
+        </ul>
+        <small>To find out more, click <a href="https://www.rocketmoney.com/learn/personal-finance/52-week-money-challenge">here</a></small>
+        <li>Debt Snowball or Avalanche</li>
+        <ul>
+            <li>Debt Snowball: Pay off the smallest debt first, gaining momentum for tackling larger debts.</li>
+            <li>Debt Avalanche: Prioritize paying off debts with the highest interest rates to save money on interest payments.</li>
+        </ul>
+        <small>To find out more, click <a href="https://www.experian.com/blogs/ask-experian/avalanche-vs-snowball-which-repayment-strategy-is-best/">here</a></small>
+    </ol>
+</div>
+{% endblock %}

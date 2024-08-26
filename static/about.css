@@ -1,0 +1,39 @@
+img {
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
+
+#about {
+    width: 100vw;
+    height: 30vh;
+    text-align: center;
+}
+
+#description {
+    margin-top:1vw;
+    width: 45vw;
+    height: auto;
+    text-align: center;
+    position: absolute;
+    left: 27.5vw;
+}
+
+h1 {
+    position: relative;
+    bottom: 20vh;
+}
+
+h2 {
+    position: relative;
+    bottom: 15vh;
+}
+
+#description h2 {
+    display: contents;
+    margin: 1vw;
+}
+
+#description p {
+    margin-top: 1rem;
+}

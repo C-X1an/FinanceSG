@@ -1,0 +1,115 @@
+<link href="{{ url_for('static', filename='university.css') }}" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
+<script src="{{ url_for('static', filename='university.js') }}"></script>
+
+<title>University Cost</title>
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+<img id="background_image" src="{{ url_for('static', filename='university_background.jpg') }}">
+<img id="background_image" src="{{ url_for('static', filename='university_background.jpg') }}">
+
+<form id="survey-form" action="/university" method="post">
+    <header>
+        <div id="title"><h1>University Calculator</h1>
+    </header>
+
+    <div id="description">This calculator helps to calculate the total expense of undertaking a university course. It accounts for loans and scholarships that students have.</div><br>
+
+    <fieldset class="fieldset">
+
+        <div class="sub-group">
+            <label class="left" id="name-label" for="annual_cost">*Annual Cost:</label>
+            <input type="text" name="annual_cost" id="annual_cost" class="right input-field" value="9000" placeholder="" required>
+        </div>
+
+        <div class="sub-group">
+            <label class="left" for=""><sup>For more information on annual tuition fees, refer Fig 1.0.</sup></label>
+            <label class="right"></label>
+        </div>
+
+        <div class="sub-group">
+            <label class="left" for="dropdown">Academic Duation:</label>
+
+            <select class="right dropdown" name="academic_years" id="academic_years">
+              <option value="2">2</option>
+              <option selected value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+        </div>
+
+        <div class="sub-group">
+            <label class="left" for="col">*Annual Cost Of Living:</label>
+            <input class="right input-field" type="number" min="0" name="col" id="col" value="10600" placeholder="" required>
+        </div>
+        <div class="sub-group">
+            <label class="left" for=""><sup>Total Estimated Costs excluding Accommodation: S$6000</sup></label>
+            <label class="right"></label>
+        </div>
+        <div class="sub-group">
+            <label class="left" for=""><sup>Total Estimated Costs including Accommodation: S$10600</sup></label>
+            <label class="right"></label>
+        </div>
+
+    </fieldset>
+
+    <fieldset class="fieldset">
+    <div id="checkboxes" class="sub-group">
+    <label class="left">
+    Do you have any of the following?</label>
+
+    <ul style="list-style: none;" class="right">
+        <li class="checkbox"><label><input type="checkbox" id="loan_checkbox" value="Loan">Loan</label></li>
+        <li class="checkbox"><label><input type="checkbox" id="scholarship_checkbox" value="Scholarship">Scholarship</label></li>
+    </ul></div></fieldset>
+
+    <fieldset class="fieldset">
+        <div id="loan_form">
+            <div class="sub-group">
+                <label class="left" for="loan_amount">Loan Amount:</label>
+                <input type="text" id="loan_amount" name="loan_amount" class="right input-field" placeholder="e.g. 5000">
+            </div>
+            <div class="sub-group">
+                <label class="left" for="loan_repayment">Monthly Repayment:</label>
+                <input type="text" id="loan_repayment" name="loan_repayment" class="right input-field" placeholder="e.g. 2000">
+            </div>
+            <div class="sub-group">
+                <label class="left" for="loan_interest">Annual Interest Rate:</label>
+                <input type="number" id="loan_interest" min="0" max="10" name="loan_interest" class="right input-field" placeholder="e.g. 3">
+            </div>
+        </div>
+        <div id="scholarship_form">
+            <div class="sub-group">
+                <label class="left" for="scholarship_grant">Scholarship Grant:</label>
+                <input type="text" id="scholarship_grant" name="scholarship_grant" class="right input-field" placeholder="e.g. 5000">
+            </div>
+        </div>
+    </fieldset>
+
+    <h2>Results</h2>
+
+    <fieldset class="fieldset">
+        <div class="sub-group">
+            <label class="left" for="annual_result">Anuual Expense:</label>
+            <input class="right input-field" name="annual_result" id="annual_result" readonly>
+        </div>
+        <div class="sub-group">
+            <label class="left" for="total_result">Total Expense:</label>
+            <input class="right input-field" name="total_result" id="total_result" readonly>
+        </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+        <div id="info">
+            <h2>More Information</h2>
+            <img id="cost_picture" src="{{ url_for('static', filename='university_annual_cost.jpg') }}">
+            <label for="cost_picture">Fig 1.0</label>
+        </div>
+    </fieldset>
+
+</form>
+{% endblock %}

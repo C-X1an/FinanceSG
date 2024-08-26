@@ -1,0 +1,174 @@
+img {
+  z-index: -1;
+  height: 100vh;
+  width: 100vw;
+}
+
+body {
+  height: 100vh;
+}
+
+header{
+  font-family:Roboto;
+  font-size:26px;
+  colour:black;
+  font-weight:bold;
+  text-align:center;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
+#survey-form{
+  background-color:#FFFFFF;
+  font-family:Quicksand;
+  max-width:60%;
+  margin:auto;
+  padding:0;
+  border-radius:15px;
+  bottom: 85%;
+  position: relative;
+  display: flow-root;
+}
+
+#description{
+  text-align:center;
+  font-size:16px;
+  padding-top:17px;
+  padding-bottom:17px;
+  font-weight:bold;
+}
+
+.fieldset{
+  border-width:0;
+  padding-top:1%;
+
+}
+
+.sub-group{
+  position:relative;
+  right:30px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding:1%;
+}
+
+label.left{
+  width:30%;
+  padding-right:4%;
+  text-align:right;
+}
+
+
+.right{
+  width:30%;
+}
+
+.centered {
+  display: block;
+  text-align: center;
+}
+
+.input-field{
+  height:3.5vh;
+  padding:5px;
+  border: 1px solid #c0c0c0;
+  border-radius: 5px;
+}
+
+#dropdown{
+  font-family:Quicksand;
+  height:30px;
+  border: 1px solid #c0c0c0;
+  border-radius: 2px;
+}
+
+.checkbox{
+  position:relative;
+  padding:3px;
+  right:3px;
+  bottom:15px;
+}
+
+.radio{
+  position:relative;
+  padding:3px;
+  bottom:15px;
+}
+
+h2{
+  position:relative;
+  bottom:8px;
+  font-size:16px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.commentbox{
+  text-align:center;
+}
+
+textarea{
+  width:65%;
+  border-radius:4px;
+}
+
+label:hover{
+  cursor:pointer;
+}
+
+@media (max-width: 800px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 580px) {
+  body {
+    font-size: 9px;
+  }
+}
+
+  #maintainance {
+    display: none;
+  }
+
+  .cssbuttons-io-button {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 0.8em 1.2em 0.8em 1.2em;
+    color: white;
+    background: #ad5389;
+    background: linear-gradient(0deg, rgba(77,54,208,1) 0%, rgba(132,116,254,1) 100%);
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #4d36d0be;
+    letter-spacing: 0.05em;
+    border-radius: 20em;
+    position: relative;
+    margin: 20px 0 20px 0;
+    left: 50%;
+  }
+
+  .cssbuttons-io-button svg {
+    margin-right: 8px;
+  }
+
+  .cssbuttons-io-button:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em #4d36d0be;
+  }
+
+  .cssbuttons-io-button:active {
+    box-shadow: 0 0.3em 1em -0.5em #4d36d0be;
+  }
+
+  #page2 {
+    display: none;
+  }
+
+  #previous {
+    position: absolute;
+    left: 2%;
+  }

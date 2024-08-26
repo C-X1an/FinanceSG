@@ -1,0 +1,35 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+
+<title>FinanceSG</title>
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{{ url_for('static', filename='moneyplant_index.jpg') }}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='landscape_index.jpg') }}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://image.cnbcfm.com/api/v1/image/103075982-GettyImages-530047047.jpg?v=1444804340&w=1920&h=1080" class="d-block w-100" alt="...">
+      </div>
+    </div>
+</div>
+<img id="mintscreen" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAA1BMVEXu//1ULrOjAAAANElEQVR4nO3BMQEAAADCoPVP7WsIoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeAN1+AABVhDU2QAAAABJRU5ErkJggg==">
+<div id="text">
+  <p id="welcome">Welcome to<br></p>
+  <p id ="financesg">FinanceSG</p>
+  <div id="description">
+    <p>FinanceSG provides a platform for Singaporeans to calculate important finances in their life. <br>We have a combination of calculators that computes your expenses and finance.</p><br><br>
+    <p>Register now for free or log in to fully utilise available features!</p>
+  </div>
+
+  <a href="/login"><button class="button-27" role="button">Login</button></a>
+  <a href="/register"><button class="button-27" role="button">Register</button></a>
+</div>
+
+{% endblock %}

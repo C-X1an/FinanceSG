@@ -1,0 +1,179 @@
+<link href="{{ url_for('static', filename='property.css') }}" rel=stylesheet>
+<script src="{{ url_for('static', filename='property.js') }}"></script>
+<link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
+
+<title>Property Calculation</title>
+
+{% extends "layout.html" %}
+
+{% block body %}
+  <img src="{{ url_for('static', filename='property_background.jpg') }}">
+  <form id="survey-form" action="/property" method="post">
+
+    <header>
+        <div id="title"><h1>Property Calulcator</h1>
+    </header>
+
+    <div id="description">This calulcator provides a good estimate of the overall cost for purchasing a property in Singapore.</div><br>
+
+    <fieldset class="fieldset">
+
+    <div class="sub-group">
+        <label class="left" for="flat_status">Status of flat</label>
+
+        <select class="right dropdown" id="flat_status" name="dropdown">
+          <option selected disabled>Select an option</option>
+          <option value="completed">Completed</option>
+          <option value="under_construction">Under Construction</option>
+        </select>
+
+    </div>
+    <div class="sub-group" id="bto_group">
+      <label class="left" for="flat_type">Type of flat:</label>
+
+      <select class="right dropdown" id="flat_type" name="dropdown">
+        <option selected disabled>Select an option</option>
+        <option value="2">2-Room</option>
+        <option value="3">3-Room</option>
+        <option value="4">4-Room</option>
+        <option value="5">5-Room</option>
+        <option value="executive">Executive</option>
+      </select>
+
+    </div>
+    <div class="sub-group">
+      <label class="left" for="price">Property Purchase Price:</label>
+      <input class="right input-field" type="number" id="price" min="0" placeholder="e.g. 400000">
+    </div>
+    <div class="sub-group">
+      <label class="left" for="additional_cost">Additional Cost:</label>
+
+      <select class="right dropdown" id="additional_cost" name="dropdown">
+        <option selected value="none">None</option>
+        <option value="10000">$10,000 SC/SPR Premium</option>
+        <option value="5%">5% Premium</option>
+        <option value="10%">10% Premium</option>
+        <option value="20%">20% Premium</option>
+      </select>
+
+    </div>
+    <div class="sub-group" id="downpayment">
+      <label class="left" for="downpayment_type">Downpayment Type</label>
+
+      <select class="right dropdown" id="downpayment_type" name="dropdown">
+        <option selected disabled>Select an option</option>
+        <option value="full">Full Downpayment</option>
+        <option value="staggered">Staggered Downpayment</option>
+        <option value="deferred">Deferred Downpayment</option>
+      </select>
+
+    </div>
+    <div class="sub-group">
+      <label class="left" for="resale_levy">Resale Levy</label>
+      <input type="number" class="right input-field" id="resale_levy" value="0">
+    </div>
+    <div class="sub-group">
+      <label class="left" for="loan_dropdown">Are you receiving any loan?</label>
+      <select class="right dropdown" id="loan_dropdown" name="dropdown">
+        <option selected disabled></option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </div>
+    <div id="loan_form">
+        <div class="sub-group">
+          <label  class="left" for="loan_amount">*Loan Amount:</label>
+          <input type="number" name="loan_amount" placeholder="e.g. 10000" min="0" value="0" class="right input-field" id="loan_amount">
+        </div>
+        <div class="sub-group">
+          <label class="left" for="loan_interest">*Loan Interest Rate (%):</label>
+          <input type="number" placeholder="" min="0" class="right input-field" id="loan_interest">
+        </div>
+        <div class="sub-group">
+          <label class="left" for="loan_tenure">*Target Loan Tenure: (years)</label>
+          <input type="number" placeholder="" min="1" class="right input-field" id="loan_tenure">
+        </div>
+        <div class="sub-group">
+          <label class="left" for="loan_monthly">Monthly Repayment for Loan:</label>
+          <input type="number" placeholder="" class="right input-field" value="0" id="loan_monthly" readonly>
+        </div>
+    </div>
+    <div class="sub-group">
+        <label class="left" for="reno_cost">Renovation Estimate ($)</label>
+        <input type="number" placeholder="e.g. 10000" min="1" name="reno_cost" class="right input-field" id="reno_cost">
+    </div>
+    <div class="sub-group">
+        <label  class="left" for="agent_fee">Agent Fee (%):</label>
+        <input type="number" placeholder="e.g. 2" min="1" name="agent_fee" class="right input-field" id="agent_fee">
+    </div>
+    <div class="sub-group">
+      <label class="left" for="estimated_cost">Estimated Cost</label>
+      <input type="number" class="right input-field" id="estimated_cost" min="0" readonly>
+    </div>
+    <label id="show_breakdown">Show cost breakdown</label>
+    <label id="hide_breakdown">Hide cost breakdown</label>
+    <div id="cost_breakdown">
+      <div class="sub-group">
+        <label class="left" for="additional_amt_res">Additional Amount</label>
+        <input type="number" class="right input-field" id="additional_amt_res" value="0" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="agent_fee_res">Agent Fee:</label>
+        <input type="number" class="right input-field" min="0" id="agent_fee_res" value="0" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="downpayment_res">Downpayment Amount</label>
+        <input type="number" class="right input-field" id="downpayment_res" value="0" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="conveyancing_fee">Conveyancing Fee</label>
+        <input type="number" class="right input-field" id="conveyancing_fee" value="0" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="stamp_fee">Lease Stamp Fee</label>
+        <input type="number" class="right input-field" id="stamp_fee" value="0" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for=""><sup>**This is calculated based on the assumption that all</sup></label>
+        <label class="right" for=""></label>
+      </div>
+      <div class="sub-group">
+        <label class="left" for=""><sup>all owners only own 1 flat inclusive.</sup></label>
+        <label class="right" for=""></label>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="lease_reg_fee">Lease Registration Fee</label>
+        <input type="number" class="right input-field" id="lease_reg_fee" value="38.30" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="mortage_reg_fee">Mortage Registration Fee</label>
+        <input type="number" class="right input-field" id="mortage_reg_fee" value="0" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="reno_res">Renovation Cost:</label>
+        <input class="right input-field" type="number" min="0" id="reno_res" value="0" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="levy_res">Resale Levy:</label>
+        <input class="right input-field" type="number" min="0" id="levy_res" value="0" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="stamp_duty">Stamp Duty for Mortage Deed</label>
+        <input type="number" class="right input-field" id="stamp_duty" value="0" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="survey_fee">Survey Fee</label>
+        <input type="number" class="right input-field" id="survey_fee" value="0" readonly>
+      </div>
+      <div class="sub-group">
+        <label class="left" for="total_repayment">Total Repayment for Loan:</label>
+        <input class="right input-field" type="number" min="0" id="total_repayment" value="0" readonly>
+      </div>
+    </div>
+    </fieldset>
+  </form>
+  </div>
+
+{% endblock %}
+
+

@@ -1,0 +1,38 @@
+<link href="{{ url_for('static', filename='about.css') }}" rel=stylesheet>
+<script src="about.js"></script>
+
+<title>About</title>
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div id="about">
+    <img src="https://img.freepik.com/free-photo/beige-abstract-wallpaper-background-image_53876-102527.jpg">
+    <h1>About FinanceSG</h1>
+    <h2>For Singaporeans, by Singaporeans</h2>
+</div>
+<div id="description">
+    <h2>Intoduction</h2><br>
+    <p>
+        Introducing FinanceSG, your comprehensive financial companion tailored for the Singaporean lifestyle. In a city where the cost of living continues to rise,
+        FinanceSG emerges as a beacon of support and guidance for individuals navigating significant expenses.
+    </p>
+
+    <h2>Mission</h2><br>
+    <p>
+        At FinanceSG, we're on a mission to raise awareness about the financial landscape in Singapore and empower our users with the tools and insights they need to make informed decisions.
+        Whether you're a young professional embarking on your career journey or a seasoned individual planning for retirement, FinanceSG is here for you.<br><br>
+        Our platform simplifies the complexities of personal finance by calculating and organizing your expenses, providing clarity amidst the hustle and bustle of everyday life.
+        Through intuitive tools and user-friendly interfaces, we streamline the process of budgeting, saving, and investing, making financial management accessible to all.
+    </p>
+
+    <h2>Conclusion</h2><br>
+    <p>
+        FinanceSG was born out of a passion for financial literacy and a commitment to serving the community. Developed as part of a final project for CS50, our platform is designed to be inclusive and accessible to users of all ages and backgrounds.
+        Because no matter where you are on your financial journey, FinanceSG is here to help you thrive.
+
+        Join us today and take control of your finances with FinanceSG. Let's embark on this journey together towards financial empowerment and security.
+    </p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+  .navbar-brand {
+    color: white;
+  }
+
+  .nav-item {
+    color: black;
+  }
+
+  .bg-dark {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+
+ #offcanvasDarkNavbarLabel {
+  color: #fff;
+ }
+
+ #navbarNav {
+  position: relative;
+  left: 41vw;
+  margin: 0 1vw;
+  font-size: large;
+}

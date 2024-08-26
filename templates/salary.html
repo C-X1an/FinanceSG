@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='salary.css') }}">
+<link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
+<script src="{{ url_for('static', filename='salary.js') }}"></script>
+
+<title>Salary Calaculation</title>
+
+{% extends "layout.html" %}
+
+{% block body %}
+<img src="{{ url_for('static', filename='salary_background.jpg') }}">
+
+<form id="survey-form" action="/salary" method="post">
+    <header>
+        <div id="title"><h1>Salary Calculator</h1>
+    </header>
+
+    <div id="description">This calculator provides a good estimate of your final income after deductions etc.</div><br>
+
+    <fieldset class="fieldset">
+
+        <div class="sub-group">
+        <label class="left" id="name-label" for="salary">*Original Wage:</label>
+        <input type="number" name="salary" min="50" class="right input-field" id="salary" placeholder="e.g. 5000" required>
+        </div>
+
+        <div class="sub-group">
+        <label class="left" id="email-label" for="additional_wage">Additional Wage:</label>
+        <input type="number" name="additional_wage" min="0" class="right input-field" placeholder="" id="additional_wage">
+        </div>
+
+        <div class="sub-group">
+        <label class="left"><sup>Click
+            <a href="https://www.cpf.gov.sg/employer/employer-obligations/what-payments-attract-cpf-contributions#section-header-1659668379">here</a> for more information.</sup></label>
+        <label class="right"></label>
+        </div>
+
+        <div class="sub-group">
+        <label  class="left" id="number-label" for="age">*Age:</label>
+        <input type="number" name="age" placeholder="Age" min="16" max="100" class="right input-field" id="age" required>
+    </div>
+
+        <div class="sub-group">
+        <label class="left" for="dropdown">*Citizenship Status:</label>
+        <select class="right dropdown" id="dropdown" name="citizenship">
+            <option selected disabled>Select an option</option>
+            <option >Singapore Citizen</option>
+            <option value="First Year PR">First Year PR</option>
+            <option value="Second Year PR">Second Year PR</option>
+            <option value="Third Year+ PR">Third Year+ PR</option>
+        </select>
+        </div>
+        <button id="submit" type="submit">Submit</button>
+    </fieldset>
+    </div>
+</form>
+
+{% endblock %}
+
+<footer>This information has been updated as of Mar 9. The calculation does not account for Full Employer & Graduated Employee contribution rates.
+    For an external calculator to proof check, you may visit <a href="https://www.cpf.gov.sg/employer/tools-and-services/calculators/cpf-contribution-calculator">here</a>.</footer>

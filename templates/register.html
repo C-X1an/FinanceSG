@@ -1,0 +1,42 @@
+<head>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='register.css') }}">
+
+    <title>Register</title>
+</head>
+
+    {% extends "layout.html" %}
+
+    {% block body %}
+
+    <form action="/register" method="post">
+        <div class="container">
+            <div class="center">
+                <h1>Register</h1>
+                <form action="" method="POST">
+                    <div class="txt_field">
+                        <input autocomplete="off" type="text" name="username" required>
+                        <span></span>
+                        <label>Username</label>
+                    </div>
+                    <div class="txt_field">
+                        <input autocomplete="off" type="password" name="password" required>
+                        <span></span>
+                        <label>Password</label>
+                    </div>
+                    <div class="txt_field">
+                        <input autocomplete="off" type="password" name="confirm_password" required>
+                        <span></span>
+                        <label>Confirm Password</label>
+                    </div>
+                    <input name="submit" type="Submit" value="Register">
+                    <div class="signup_link">
+                        Have an account ? <a href="/login">Log In</a>
+                    </div>
+                </form>
+            </div>
+          </div>
+    </form>
+
+    {% endblock %}
+

@@ -1,0 +1,99 @@
+<link href="{{ url_for('static', filename='budget.css') }}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
+<script src="{{ url_for('static', filename='budget.js') }}"></script>
+
+<title>Budget Calculator</title>
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+<img src="{{ url_for('static', filename='budget_background.jpeg') }}">
+
+<form id="survey-form" action="/budget" method="post">
+    <div id="page1">
+        <header>
+            <div id="title"><h1>Budget Planner</h1>
+        </header>
+
+        <div id="description">The Budget Planner analyses your budget and recommend necessary changes.</div><br>
+
+        <fieldset class="fieldset">
+            <div class="sub-group">
+                <label class="left">
+                    *Do you revceive any maintainance?</label>
+                    <label class="right"><input type="checkbox" id="maintainance_checkbox" value=""></label>
+            </div>
+
+            <div class="sub-group">
+                <label class="left" id="" for="income">What is your monthly income:</label>
+                <input type="number" name="income" min="400" class="right input-field" placeholder="e.g. 5000" id="income" required>
+            </div>
+
+            <div id="maintainance">
+                <div class="sub-group">
+                    <label class="left" id="" for="">What is your monthly maintainance:</label>
+                    <input type="number" name="maintainance" min="0" class="right input-field" placeholder="e.g. 5000" id="">
+                </div>
+                <div class="sub-group">
+                    <label class="left" for="empty"><sup>This includes child and spousal maintainance.</sup></label>
+                    <label class="right" id="empty"></label>
+                </div>
+            </div>
+            <button class="cssbuttons-io-button" id="next">
+                <span>Next</span>
+            </button>
+
+        </fieldset>
+    </div>
+    <div id="page2">
+        <header>
+            <div id="title"><h1>Expenses</h1>
+        </header>
+
+        <div id="description">Fill out your monthly expenses.</div>
+
+        <fieldset class="fieldset">
+
+          <div class="sub-group">
+            <label class="left" id="" for="mandatory_expenses">*Mandatory Expenses (Needs):</label>
+            <input type="number" name="mandatory_expenses" min="0" class="right input-field" id="mandatory_expenses" placeholder="e.g. 2000" required>
+          </div>
+
+          <div class="sub-group">
+            <label class="left" id="" for=""><sup>e.g. Utilities, Healthcare, Groceries</sup></label>
+            <label class="right"></label>
+          </div>
+
+          <div class="sub-group">
+            <label class="left" id="" for="wants_cost">*Discretionary Cost (Wants):</label>
+            <input type="number" name="wants_cost" min="0" class="right input-field" id="wants_cost" placeholder="e.g. 2000" required>
+          </div>
+
+          <div class="sub-group">
+            <label class="left" id="" for=""><sup>e.g. Entertaintment, Restaurants, Travel</sup></label>
+            <label class="right"></label>
+          </div>
+
+          <div class="sub-group">
+            <label class="left" id="" for="savings">*Savings and Debt Payments:</label>
+            <input type="number" name="savings" min="0" class="right input-field" id="savings" placeholder="e.g. 2000">
+          </div>
+
+          <div class="sub-group">
+            <label class="left" id="" for=""><sup>e.g. Student Loans, Credit Card Debts</sup></label>
+            <label class="right"></label>
+          </div>
+          <br>
+          <small class="centered">The remaining income(if applicable) will be treated as miscellaneous fund</small>
+          <button class="cssbuttons-io-button" id="previous">
+            <span>Previous</span>
+          </button>
+          <button class="cssbuttons-io-button" id="submit" type="submit">
+            <span>Calculate</span>
+          </button>
+        </fieldset>
+    </div>
+</form>
+
+{% endblock %}
