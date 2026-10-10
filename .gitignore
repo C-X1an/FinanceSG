@@ -1,0 +1,12 @@
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.env
+.env.*
+instance/
+flask_session/
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
