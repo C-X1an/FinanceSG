@@ -1,4 +1,8 @@
 import os
+import secrets
+import math
+from pathlib import Path
+from cachelib import FileSystemCache
 
 from cs50 import SQL
 from flask import Flask, render_template, redirect, request, session
@@ -10,10 +14,25 @@ app = Flask(__name__)
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_TYPE"] = "cachelib"
+app.config["SECRET_KEY"] = os.environ.get("FINANCESG_SECRET_KEY") or secrets.token_hex(32)
+app.config["SESSION_CACHELIB"] = FileSystemCache(os.environ.get("FINANCESG_SESSION_DIR", str(Path(app.instance_path) / "sessions")), threshold=500, mode=0o600)
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 Session(app)
 
-db = SQL("sqlite:///financesg.db")
+database_path = Path(os.environ.get("FINANCESG_DATABASE", str(Path(__file__).parent / "financesg.db"))).resolve()
+if not database_path.is_file():
+    raise RuntimeError("Database not initialized. Run: python init_db.py")
+db = SQL("sqlite:///" + database_path.as_posix())
+
+
+@app.before_request
+def guard_unvalidated_calculators():
+    # These legacy formulas contain outdated rules and runtime errors.
+    if request.method == "POST" and request.path in {"/salary", "/vehicle", "/property", "/university"}:
+        return render_template("legacy_calculator.html"), 501
+
 
 @app.after_request
 def after_request(response):
@@ -107,7 +126,7 @@ def register():
         if username in usernames_check:
             return render_template("register.html", nametaken=True)
         hash_password = generate_password_hash(password)
-        db.execute("INSERT INTO users SET VALUES (?, ?, ?, datetime['now'])", session["user_id"], username, hash_password)
+        session["user_id"] = db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, hash_password)
         return redirect("/")
     else:
         return render_template("register.html")
@@ -315,13 +334,18 @@ def income_tax():
 @app.route("/budget", methods=["GET", "POST"])
 def budget():
     if request.method == "POST":
-        if request.form.get("maintainance_checkbox") == True:
-            inflow = int(request.form.get("income")) + int(request.form.get("maintainance"))
-        else:
-            inflow = int(request.form.get("income"))
-        mandatory = int(request.form.get("mandatory_expenses"))
-        discretionary = int(request.form.get("wants_cost"))
-        savings = int(request.form.get("savings"))
+        try:
+            inflow = float(request.form.get("income", ""))
+            if request.form.get("maintainance_checkbox"):
+                inflow += float(request.form.get("maintainance", ""))
+            mandatory = float(request.form.get("mandatory_expenses", ""))
+            discretionary = float(request.form.get("wants_cost", ""))
+            savings = float(request.form.get("savings", ""))
+            values = (inflow, mandatory, discretionary, savings)
+            if not all(math.isfinite(value) and value >= 0 for value in values) or inflow <= 0:
+                raise ValueError
+        except (TypeError, ValueError):
+            return render_template("budget.html", input_error=True), 400
         mandatory_expenses_percent = round((mandatory / inflow) * 100, 2)
         discretionary_expenses_percent = round((discretionary / inflow) * 100, 2)
         savings_percent = round((savings / inflow) * 100, 2)

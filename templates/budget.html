@@ -7,6 +7,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
+{% if input_error %}<p role="alert">Enter finite, non-negative amounts and an income greater than zero.</p>{% endif %}
 
 <img src="{{ url_for('static', filename='budget_background.jpeg') }}">
 

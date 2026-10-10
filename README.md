@@ -1,23 +1,39 @@
-FinanceSG
-#### Video Demo:  <https://youtu.be/iszHnqBoc78>
-#### Description:
-I created FinanceSG with the aspiration to alleviate the rising cost of living in Singapore. Singaporeans have been trying to stay away from making big-ticket purchases in the recent years due to the ever rising inflation rate. To develop this project,
-I have used a mixed of Python, JavaScript, HTML, CSS etc.
-While it may be a good sign that we are saving money by avoiding these purchases, I posit that the cause of this does more harm than good. Singaporeans should have the ability to plan their own finances and practice self-discipline rather than
-fearing that they might stepped on a loophole.
+# FinanceSG
 
-The vehicle calculator request inputs such as the open market value (OMV), vehicle category, vehicle age and more to provide a good gauge of the total cost required when purchasing a car.
+A legacy Flask learning prototype for Singapore budgeting and cost-estimation forms.
 
-The property calculator requires quite a bit of inforamtion due to the complexitiy of the calculation. Some inforamtion it requires is the status of flat, whether isit still constructing or has it been completed, type of flat, resale levy and more. The
-unique feature of this calculator is that it provides a cost breakdown of the inidividual cost involved in my calculation so that users can better understand how I have dervied the cost.
+**Current status:** local registration/login and the budget percentage demonstration work. Salary/CPF, vehicle, property and university POST calculations return HTTP 501 with an explanation: their original formulas contain runtime errors or outdated assumptions and need independent validation before use. The forms remain available to inspect the original interface. No financial estimate is produced or stored by the paused endpoints.
 
-For the income tax calculator, I have outsourced it to official authorities excel sheet. This is because I realised that I needed information that was not readily available and there weren't any APIs available.
+## Run locally
 
-The university calculator provides the same functionality as other calculators. Some infomation required includes the tuition fees and whether the student has any loans or scholarships. I have provided a list of tuition fees at the bottom of the page so
-that users can reference to it if unsure of their course's tuition fees.
+Use Python 3.12 and fictional input only:
 
-Lastly, the budget planner takes in information such as whether the user has any maintainance and their monthly income. By using information such as their income and expense, the calculator provides feedback as to whether their respective expenses fall
-within the healthy range w.r.t Singapore's average and financial advior's advices. Additionally, it provides some useful tips as to how users should allocation their income. It also has some good challenges and habits that are proven through research
-to help people save more money.
+```sh
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# macOS/Linux: source .venv/bin/activate
+python -m pip install -r requirements.txt
+python init_db.py
+python -m flask --app app run
+```
 
-Overall, FinanceSG has the goal of providing knowledge and advice to Singaporeans on making their big-ticket purchases. Hope everyone has enjoyed it!
+The initializer creates an empty `users` table and refuses to overwrite existing files. Register a fictional local account through the app. Set `FINANCESG_DATABASE` to use a different database path, `FINANCESG_SESSION_DIR` to choose session storage, and `FINANCESG_SECRET_KEY` for a stable local secret. The default generated secret changes on restart. Database and session files are ignored by Git.
+
+## Correctness boundaries
+
+- The legacy CPF code used a $6,800 Ordinary Wage ceiling; the [official 2026 CPF rates](https://www.cpf.gov.sg/content/dam/web/employer/employer-obligations/documents/CPFcontributionratesfrom1Jan2026.pdf) specify $8,000. Use the [current CPF calculator](https://www.cpf.gov.sg/member/tools-and-services/calculators/cpf-contribution-calculator).
+- Vehicle code contained fixed COE amounts and incorrect arithmetic. Consult [LTA's current tax structure](https://onemotoring.lta.gov.sg/content/onemotoring/home/buying/upfront-vehicle-costs/tax-structure.html); this prototype has not implemented it.
+- Property and university calculations have unresolved formula and input-conversion errors. Their old implementations remain in source for review, guarded from execution.
+- Budget percentages are arithmetic on user input. The original comparison thresholds are legacy heuristics with no validated advisory basis; they are not recommendations.
+
+This app needs CSRF protection, rate limits, comprehensive validation and secure deployment work before any public service. Do not enter real financial or account data. No license has been declared; public visibility alone is not a reuse license.
+
+## Verify
+
+```sh
+python -m pip install -r requirements-dev.txt
+python -m pytest -q
+python -m pip_audit -r requirements.txt
+```
+
+Tests initialize temporary databases, exercise registration/login and budget input validation, and verify that legacy financial endpoints cannot emit misleading results. No external financial services are called.
